@@ -1,6 +1,5 @@
 import React from 'react';
 import { Sport } from '../types';
-import { Target, Trophy, Activity } from 'lucide-react';
 
 interface SportCardProps {
   sport: Sport;
@@ -12,11 +11,11 @@ const SportCard: React.FC<SportCardProps> = ({ sport, onSelect, disabled }) => {
   const getIcon = () => {
     switch (sport) {
       case Sport.BASKETBALL:
-        return <Trophy size={40} color="#cc6600" />;
+        return <img src="/basketball.png" alt="Basketball" style={{ width: 30, height: 30 }} />;
       case Sport.HOCKEY:
-        return <Activity size={40} color="#008b8b" />;
+        return <img src="/hockey.png" alt="Hockey" style={{ width: 30, height: 30 }} />;
       case Sport.FOOTBALL:
-        return <Target size={40} color="#2e8b57" />;
+        return <img src="/americanfootball.png" alt="Football" style={{ width: 30, height: 30 }} />;
     }
   };
 
