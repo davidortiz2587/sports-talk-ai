@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Sports Talk GenAI",
+  "description": "A web-based intelligent assistant that generates conversation topics based on recent news and events for your favorite sports using Google Gemini with Search Grounding.",
+  "requestFramePermissions": []
+}
