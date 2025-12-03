@@ -33,67 +33,65 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col items-center py-12 px-4 sm:px-6">
-      {/* Header */}
-      <header className="mb-12 text-center space-y-4">
-        <div className="inline-flex items-center justify-center p-3 rounded-full bg-blue-500/10 mb-4">
-          <Flame className="w-8 h-8 text-blue-500" />
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-          Sports Talk GenAI
-        </h1>
-        <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-          Select a sport to get instant conversation starters based on the latest news and events, powered by Google Gemini.
-        </p>
-      </header>
+    <div style={{ paddingTop: 32 }}>
+      {!loading && !response && (
+        <header style={{ marginBottom: 24 }}>
+          <h1 style={{ fontSize: 48, fontWeight: 700, color: '#000', margin: 0 }}>I want to talk about sports</h1>
+          <p style={{ fontSize: 14, color: '#333' }}>
+            Select a sport to get instant conversation starters based on the latest news and events, powered by Google Gemini.
+          </p>
+        </header>
+      )}
 
-      {/* Main Content Area */}
-      <main className="w-full max-w-5xl">
+      <main>
         {error && (
-            <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-200 text-center">
-              {error}
-            </div>
+          <div style={{
+            marginBottom: 16,
+            padding: 12,
+            border: '1px solid #dd0000',
+            background: '#ffeeee',
+            color: '#990000',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
         )}
 
-        {/* Loading State */}
         {loading && (
-          <div className="flex flex-col items-center justify-center py-20 animate-fadeIn">
-            <Loader2 className="w-16 h-16 text-blue-500 animate-spin mb-6" />
-            <h3 className="text-xl font-medium text-slate-300">Checking the latest stats for {selectedSport}...</h3>
-            <p className="text-slate-500 mt-2">Connecting to live search results</p>
+          <div style={{
+            padding: 60,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+              <div style={{ width: 10, height: 10, background: '#0000cc', animation: 'blink 1s infinite' }} />
+              <div style={{ width: 10, height: 10, background: '#2e8b57', animation: 'blink 1s infinite 0.2s' }} />
+              <div style={{ width: 10, height: 10, background: '#cc6600', animation: 'blink 1s infinite 0.4s' }} />
+              <div style={{ width: 10, height: 10, background: '#008b8b', animation: 'blink 1s infinite 0.6s' }} />
+            </div>
+            <p style={{ color: '#333', fontSize: 14 }}>Loading results for {selectedSport}...</p>
+            <style>{`@keyframes blink { 50% { opacity: 0.3; } }`}</style>
           </div>
         )}
 
-        {/* Selection State */}
         {!selectedSport && !loading && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn">
-            <SportCard 
-              sport={Sport.BASKETBALL} 
-              onSelect={handleSportSelect} 
-            />
-            <SportCard 
-              sport={Sport.HOCKEY} 
-              onSelect={handleSportSelect} 
-            />
-            <SportCard 
-              sport={Sport.FOOTBALL} 
-              onSelect={handleSportSelect} 
-            />
+          <div>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+              <SportCard sport={Sport.BASKETBALL} onSelect={handleSportSelect} />
+              <SportCard sport={Sport.HOCKEY} onSelect={handleSportSelect} />
+              <SportCard sport={Sport.FOOTBALL} onSelect={handleSportSelect} />
+            </div>
           </div>
         )}
 
-        {/* Result State */}
         {!loading && response && selectedSport && (
-          <ResultsView 
-            sport={selectedSport} 
-            data={response} 
-            onReset={handleReset} 
-          />
+          <ResultsView sport={selectedSport} data={response} onReset={handleReset} />
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-auto pt-12 text-slate-600 text-sm">
+      <footer className="footer">
         <p>Powered by Google Gemini 2.5 Flash & Grounding with Google Search</p>
       </footer>
     </div>

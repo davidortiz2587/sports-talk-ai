@@ -1,7 +1,7 @@
 export enum Sport {
   BASKETBALL = 'Basketball',
   HOCKEY = 'Hockey',
-  FOOTBALL = 'Football'
+  FOOTBALL = 'American Football'
 }
 
 export interface GroundingChunk {

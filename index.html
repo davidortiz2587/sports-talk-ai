@@ -4,12 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sports Talk GenAI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+      /* 1999 Google-esque minimal styling */
+      html, body { height: 100%; }
       body {
-        font-family: 'Inter', sans-serif;
+        margin: 0;
+        background: #ffffff;
+        color: #000000;
+        font-family: Arial, Helvetica, sans-serif;
       }
+      .page-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100%;
+      }
+      .container {
+        width: 640px;
+        text-align: center;
+      }
+      a { color: #0000cc; }
+      .btn {
+        border: 1px solid #bdbdbd;
+        background: #efefef;
+        padding: 4px 10px;
+        margin: 0 4px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .card {
+        border: 1px solid #dcdcdc;
+        padding: 12px;
+        margin: 8px 0;
+        text-align: left;
+        background: #f9f9f9;
+      }
+      .footer { color: #6b6b6b; font-size: 12px; margin-top: 24px; }
     </style>
   <script type="importmap">
 {
@@ -24,7 +54,12 @@
 }
 </script>
 </head>
-  <body class="bg-slate-900 text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
-    <div id="root"></div>
+  <body>
+    <div class="page-wrap">
+      <div class="container">
+        <div id="root"></div>
+      </div>
+    </div>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

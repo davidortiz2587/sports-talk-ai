@@ -1,10 +1,15 @@
 import { GoogleGenAI } from "@google/genai";
 import { Sport, ConversationResponse } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Vite exposes env vars via import.meta.env and requires VITE_ prefix
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
+const ai = new GoogleGenAI({ apiKey });
 
 export const fetchConversationTopics = async (sport: Sport): Promise<ConversationResponse> => {
   try {
+    if (!apiKey) {
+      throw new Error("Missing VITE_GEMINI_API_KEY. Set it in .env.local.");
+    }
     const prompt = `Give me 3-5 interesting conversation topics based on the absolute latest news, scores, or drama for ${sport}. 
     Focus on recent events that people are talking about right now. 
     Format the output as a clean list of topics with a brief explanation for each.`;
@@ -24,7 +29,14 @@ export const fetchConversationTopics = async (sport: Sport): Promise<Conversatio
     const groundingChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
     
     // Filter chunks to only those that have web data
-    const sources = groundingChunks.filter(chunk => chunk.web);
+    const sources = groundingChunks
+      .filter(chunk => chunk.web && chunk.web.uri && chunk.web.title)
+      .map(chunk => ({
+        web: {
+          uri: chunk.web!.uri as string,
+          title: chunk.web!.title as string
+        }
+      }));
 
     return {
       text,
